@@ -1,13 +1,65 @@
 <?php
 
+    $attributes = get_query_var('attributes');
+
+
+
     $args = [
 
         'post_type' => 'cars',
-        //'meta_key' => 'colour',
-        //s'meta_value' => 'Black',
         'posts_per_page' => 0,
-
+        'tax_query' => [],
+        'meta_query' => [],
+        
     ];
+
+    if(isset($attributes['price_below']))
+    {
+        $args['meta_query'][] =  array(
+            'key' => 'price',
+            'value' => $attributes['price_below'],
+            'type' => 'numeric',
+            'compare' => '<='
+        );
+
+    }
+
+
+    if(isset($attributes['price_above']))
+    {
+        $args['meta_query'][] =  array(
+            'key' => 'price',
+            'value' => $attributes['price_above'],
+            'type' => 'numeric',
+            'compare' => '>='
+        );
+
+    }
+
+
+    if( isset($attributes['colour']) )
+    {
+
+        $args['meta_query'][] =  array(
+            'key' => 'colour',
+            'value' => $attributes['colour'],
+            'compare' => '='
+        );
+
+    }
+
+    if( isset($attributes['brand']) )
+    {
+        $args['tax_query'][] =   [
+            'taxonomy' => 'brands',
+            'field' => 'slug',
+            'terms' => array( $attributes['brand'] ),
+        ];
+    }
+
+
+
+    
 
     $query = new WP_Query($args);
 ?>

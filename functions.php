@@ -284,10 +284,17 @@ function custom_mailer( PHPMailer $phpmailer )
 
 
 
-function my_shortcode()
+function my_shortcode($atts, $content = null, $tag = '')
 {
+
 	ob_start();
+
+	print_r($content);
+
+	set_query_var('attributes', $atts);
+
 	get_template_part('includes/latest', 'cars');
+
 	return ob_get_clean();
 
 }
