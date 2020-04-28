@@ -1,6 +1,3 @@
-# WordPress-Theme-Development-Series-MrDigital
-
-
 # Basic WordPress Theme Development Tutorial
 
 Learn how to build a WordPress theme development series
